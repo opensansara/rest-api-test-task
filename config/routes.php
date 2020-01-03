@@ -14,5 +14,9 @@ return static function () {
         '_controller' => ApiController\Product\ProductsListController::class
     ]));
 
+    $routeCollection->add('order-create', new Route('/api/v1/order/create/{slug}', [
+        '_controller' => ApiController\Order\OrderCreateController::class
+    ]));
+
     return $routeCollection;
 };
