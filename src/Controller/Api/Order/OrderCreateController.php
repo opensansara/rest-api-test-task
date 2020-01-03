@@ -23,7 +23,7 @@ class OrderCreateController extends ApiBaseController
     /**
      * @param Request $request
      * @return Response
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function process(Request $request): Response
     {

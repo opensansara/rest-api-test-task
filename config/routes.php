@@ -18,5 +18,9 @@ return static function () {
         '_controller' => ApiController\Order\OrderCreateController::class
     ]));
 
+    $routeCollection->add('order-pay', new Route('/api/v1/order/pay/{slug}', [
+        '_controller' => ApiController\Order\PayOrderController::class
+    ]));
+
     return $routeCollection;
 };

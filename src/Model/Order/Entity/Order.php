@@ -21,7 +21,7 @@ class Order
     private $status;
 
     /**
-     * //TODO::переделать на массив объектов Product
+     * //TODO::переделать на массив объектов OrderProduct
      * @var int[]
      */
     private $productIds;
@@ -101,5 +101,10 @@ class Order
     public function getPrice(): int
     {
         return $this->price;
+    }
+
+    public function pay()
+    {
+        $this->status = OrderStatus::paid();
     }
 }

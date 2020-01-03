@@ -2,6 +2,7 @@
 namespace App\Model\Order\Repository;
 
 use App\Model\Order\Entity\Order;
+use App\Model\Order\OrderStatus;
 use Doctrine\DBAL\Connection;
 
 class OrderRepository
@@ -31,7 +32,30 @@ class OrderRepository
             return $this->createNewOrder($order);
         }
 
-        throw new \Exception('Not implemented order update');
+        $this->updateOrder($order);
+        return $order->getId();
+    }
+
+    /**
+     * @param int $id
+     * @return Order
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function findOrderWithoutProducts(int $id) : Order
+    {
+        $orderData = $this->connection->query('SELECT * FROM orders WHERE id=' . $id)->fetch();
+        if (!$orderData) {
+            throw new \DomainException('Заказ не найден');
+        }
+
+        return new Order(
+            $orderData['id'],
+            $orderData['user_id'],
+            OrderStatus::make($orderData['status_id']),
+            [],
+            new \DateTimeImmutable($orderData['date_create']),
+            $orderData['price']
+        );
     }
 
     /**
@@ -69,5 +93,19 @@ class OrderRepository
         });
 
         return $orderId;
+    }
+
+    /**
+     * @param Order $order
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function updateOrder(Order $order)
+    {
+        //TODO::implement full update
+        $sql = 'UPDATE orders SET status_id=:status_id WHERE id=:order_id';
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue('status_id', $order->getStatus()->getValue());
+        $stmt->bindValue('order_id', $order->getId());
+        $stmt->execute();
     }
 }
