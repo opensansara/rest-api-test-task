@@ -3,7 +3,7 @@
  * @var ServiceManager $serviceContainer
  */
 
-use App\Controller\ApiErrorController;
+use App\Controller\Api\ApiErrorController;
 use App\Controller\ContainerAwareInterface;
 use App\Controller\ControllerInterface;
 use App\Infrastructure\API\ApiErrorsDescriptor;
@@ -33,7 +33,7 @@ try {
     // Определяем текуший роут
     $routeParams = $router->match($request->getRequestUri());
 
-    // Создаем котроллер
+    // Создаем котроллер, подразумеваем, что на каждый метод АПИ свой контроллер, для простоты
 
     /** @var ControllerInterface|ContainerAwareInterface $controller */
     $controller = $serviceContainer->get($routeParams['_controller']);
@@ -60,7 +60,7 @@ try {
     $apiErrorsDescriptor = $serviceContainer->get(ApiErrorsDescriptor::class);
     $apiErrorDescription = $apiErrorsDescriptor->getErrorDescriptionByCode('unexpected_error');
 
-    /** @var ApiErrorController $errorController */
+    /** @var \App\Controller\Api\ApiErrorController $errorController */
     $errorController = $serviceContainer->get(ApiErrorController::class);
     $errorController->errorResponse([], [$apiErrorDescription->getDescription()], $apiErrorDescription->getCode())->send();
 }

@@ -4,8 +4,9 @@
  * И в случае успеха и в случае ошибки возвращаем HTTP код 200
  * Для индикации ошибки используем внутренние коды, передаваемые в теле ответа
  */
-namespace App\Controller;
+namespace App\Controller\Api;
 
+use App\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 

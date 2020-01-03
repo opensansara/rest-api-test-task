@@ -1,6 +1,7 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Api;
 
+use App\Controller\Api\ApiBaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

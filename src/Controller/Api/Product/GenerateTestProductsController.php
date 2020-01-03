@@ -1,6 +1,7 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Api\Product;
 
+use App\Controller\Api\ApiBaseController;
 use App\Model\Product\UseCase\GenerateTestProducts\GenerateTestProductsCommand;
 use App\Model\Product\UseCase\GenerateTestProducts\GenerateTestProductsHandler;
 use Symfony\Component\HttpFoundation\Request;
