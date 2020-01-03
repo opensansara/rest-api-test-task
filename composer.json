@@ -7,7 +7,8 @@
         "symfony/routing": "^5.0",
         "symfony/http-foundation": "^5.0",
         "symfony/config": "^5.0",
-        "zendframework/zend-servicemanager": "^3.4"
+        "zendframework/zend-servicemanager": "^3.4",
+        "doctrine/dbal": "^2.10"
     },
     "require-dev": {
     },

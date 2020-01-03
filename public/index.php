@@ -11,13 +11,13 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Router;
 use Zend\ServiceManager\ServiceManager;
 
-require dirname(__DIR__) . '/config/bootstrap.php';
-
 if ($_SERVER['APP_DEBUG'] === true) {
     error_reporting(E_ALL);
 }
 
 try {
+    require dirname(__DIR__) . '/config/bootstrap.php';
+
     $request = Request::createFromGlobals();
 
     // Создаем роутер
@@ -48,4 +48,6 @@ try {
         /** @noinspection ForgottenDebugOutputInspection */
         print_r($ex->getTraceAsString());
     }
+
+    //TODO::logging
 }
