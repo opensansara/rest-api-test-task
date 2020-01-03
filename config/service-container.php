@@ -7,7 +7,9 @@ return [
             ReflectionBasedAbstractFactory::class,
         ],
         'factories' => [
-
+            \Doctrine\DBAL\Connection::class => function (\Psr\Container\ContainerInterface $container) {
+                return $container->get('db-connection');
+            }
         ]
     ]
 ];

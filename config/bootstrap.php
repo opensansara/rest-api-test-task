@@ -21,4 +21,4 @@ $connectionParams = array(
     'url' => $_ENV['DATABASE_URL'],
 );
 $connection = DriverManager::getConnection($connectionParams);
-$serviceContainer->setService('connection', $connection);
+$serviceContainer->setService('db-connection', $connection);
