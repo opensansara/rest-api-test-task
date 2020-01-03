@@ -24,11 +24,12 @@ class GenerateTestProductsController extends ApiBaseController
 
     /**
      * @inheritDoc
+     * @throws \Throwable
      */
     public function process(Request $request): Response
     {
         $numProductsToGenerate = 20;
-        $command = new GenerateTestProductsCommand($numProductsToGenerate);
+        $command = new GenerateTestProductsCommand($numProductsToGenerate, true);
         $this->generateTestProductsHandler->handle($command);
 
         return $this->successResponse(['num_generated' => $numProductsToGenerate]);

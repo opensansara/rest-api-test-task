@@ -9,12 +9,20 @@ class GenerateTestProductsCommand
     private $numProducts;
 
     /**
+     * Создать товары в транзакции, т.е. либо все, либо ничего
+     * @var bool
+     */
+    private $transactional;
+
+    /**
      * GenerateTestProductsCommand constructor.
      * @param int $numProducts
+     * @param bool $transactional
      */
-    public function __construct(int $numProducts)
+    public function __construct(int $numProducts, bool $transactional)
     {
         $this->numProducts = $numProducts;
+        $this->transactional = $transactional;
     }
 
     /**
@@ -23,5 +31,13 @@ class GenerateTestProductsCommand
     public function getNumProducts(): int
     {
         return $this->numProducts;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTransactional(): bool
+    {
+        return $this->transactional;
     }
 }
