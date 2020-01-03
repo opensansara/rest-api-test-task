@@ -17,7 +17,6 @@ class ProductRepository
      */
     public function __construct(Connection $connection)
     {
-
         $this->connection = $connection;
     }
 
@@ -41,5 +40,21 @@ class ProductRepository
         $stmt->execute();
 
         return $this->connection->lastInsertId();
+    }
+
+    /**
+     * @return Product[]
+     * @throws DBALException
+     */
+    public function findAll()
+    {
+        $products = [];
+
+        $iterator = $this->connection->query('SELECT * FROM products');
+        while ($productData = $iterator->fetch()) {
+            $products[] = new Product($productData['id'], $productData['name'], $productData['price']);
+        }
+
+        return $products;
     }
 }
