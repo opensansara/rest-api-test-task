@@ -35,7 +35,7 @@ try {
     // Создаем котроллер
 
     /** @var ControllerInterface|ContainerAwareInterface $controller */
-    $controller = $serviceContainer->get(ControllerServiceLocator::class)->get($routeParams['_controller']);
+    $controller = $serviceContainer->get($routeParams['_controller']);
     $controller->setContainer($serviceContainer);
 
     // Обрабатываем запрос, возвращаем ответ
