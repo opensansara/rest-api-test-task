@@ -22,3 +22,7 @@ $connectionParams = array(
 );
 $connection = DriverManager::getConnection($connectionParams);
 $serviceContainer->setService('db-connection', $connection);
+
+// Авторизация, для простоты полагаем что пользователь всегда авторизован
+$user = new \App\Infrastructure\User(1, 'admin');
+$serviceContainer->setService('user', $user);
