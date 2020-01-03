@@ -3,20 +3,24 @@
  * @var ServiceManager $serviceContainer
  */
 
+use App\Controller\ApiBaseController;
+use App\Controller\ApiErrorController;
 use App\Controller\ContainerAwareInterface;
 use App\Controller\ControllerInterface;
+use App\Infrastructure\API\ApiErrorsDescriptor;
+use App\Infrastructure\API\ApiResponseBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Loader\ClosureLoader;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Router;
 use Zend\ServiceManager\ServiceManager;
 
-if ($_SERVER['APP_DEBUG'] === true) {
-    error_reporting(E_ALL);
-}
-
 try {
     require dirname(__DIR__) . '/config/bootstrap.php';
+
+    if ($_SERVER['APP_DEBUG'] === true) {
+        error_reporting(E_ALL);
+    }
 
     $request = Request::createFromGlobals();
 
@@ -41,13 +45,24 @@ try {
     $controller->process($request)->send();
 
 } catch (Throwable $ex) {
+    // Обработка непредвиденной ошибки
+
     if ($_SERVER['APP_DEBUG'] === true) {
         /** @noinspection ForgottenDebugOutputInspection */
         print_r($ex->getMessage());
 
         /** @noinspection ForgottenDebugOutputInspection */
         print_r($ex->getTraceAsString());
+        exit();
     }
 
-    //TODO::logging
+    //TODO::add logging
+
+    /** @var ApiErrorsDescriptor $apiErrorsDescriptor */
+    $apiErrorsDescriptor = $serviceContainer->get(ApiErrorsDescriptor::class);
+    $apiErrorDescription = $apiErrorsDescriptor->getErrorDescriptionByCode('unexpected_error');
+
+    /** @var ApiErrorController $errorController */
+    $errorController = $serviceContainer->get(ApiErrorController::class);
+    $errorController->errorResponse([], [$apiErrorDescription->getDescription()], $apiErrorDescription->getCode())->send();
 }
