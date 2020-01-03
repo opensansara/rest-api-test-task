@@ -3,12 +3,10 @@
  * @var ServiceManager $serviceContainer
  */
 
-use App\Controller\ApiBaseController;
 use App\Controller\ApiErrorController;
 use App\Controller\ContainerAwareInterface;
 use App\Controller\ControllerInterface;
 use App\Infrastructure\API\ApiErrorsDescriptor;
-use App\Infrastructure\API\ApiResponseBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Loader\ClosureLoader;
 use Symfony\Component\Routing\RequestContext;
