@@ -5,7 +5,6 @@
 
 use App\Controller\ContainerAwareInterface;
 use App\Controller\ControllerInterface;
-use App\Infrastructure\ServiceLocator\ControllerServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Loader\ClosureLoader;
 use Symfony\Component\Routing\RequestContext;
