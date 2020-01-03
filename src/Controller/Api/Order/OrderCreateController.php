@@ -32,7 +32,8 @@ class OrderCreateController extends ApiBaseController
             $userId = $this->getContainer()->get('user')->getId(),
             $status = OrderStatus::new(),
             $productIds = $request->get('products'),
-            $dateCreate = new \DateTimeImmutable()
+            $dateCreate = new \DateTimeImmutable(),
+            $price = 100 //TODO::получить товары и посчитать стоимость
         );
 
         $orderId = $this->createOrderCommandHandler->handle($command);

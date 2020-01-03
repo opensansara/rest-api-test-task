@@ -32,20 +32,27 @@ class CreateOrderCommand
     private $dateCreate;
 
     /**
+     * @var int
+     */
+    private $price;
+
+    /**
      * Order constructor.
      * @param int $id
      * @param int $userId
      * @param OrderStatus $status
      * @param int[] $productIds
      * @param \DateTimeImmutable $dateCreate
+     * @param int $price
      */
-    public function __construct(int $id, int $userId, OrderStatus $status, array $productIds, \DateTimeImmutable $dateCreate)
+    public function __construct(int $id, int $userId, OrderStatus $status, array $productIds, \DateTimeImmutable $dateCreate, int $price)
     {
         $this->userId = $userId;
         $this->status = $status;
         $this->productIds = $productIds;
         $this->id = $id;
         $this->dateCreate = $dateCreate;
+        $this->price = $price;
     }
 
     /**
@@ -86,5 +93,13 @@ class CreateOrderCommand
     public function getDateCreate(): \DateTimeImmutable
     {
         return $this->dateCreate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPrice(): int
+    {
+        return $this->price;
     }
 }

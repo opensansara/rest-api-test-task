@@ -42,13 +42,14 @@ class OrderRepository
     private function createNewOrder(Order $order)
     {
         $orderId = $this->connection->transactional(function ($connection) use ($order) {
-            $sql ='INSERT INTO orders SET id=0, user_id=:user_id, status_id=:status_id, date_create=:date_create';
+            $sql ='INSERT INTO orders SET id=0, user_id=:user_id, status_id=:status_id, date_create=:date_create, price=:price';
 
             $stmt = $this->connection->prepare($sql);
 
             $stmt->bindValue('user_id', $order->getUserId());
             $stmt->bindValue('status_id', $order->getStatus()->getValue());
             $stmt->bindValue('date_create', $order->getDateCreate()->format('Y-m-d H:i:s'));
+            $stmt->bindValue('price', $order->getPrice());
 
             $stmt->execute();
 

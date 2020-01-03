@@ -22,7 +22,7 @@ class CreateOrderCommandHandler
     /**
      * @param CreateOrderCommand $command
      * @return int
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function handle(CreateOrderCommand $command) : int
     {
@@ -31,7 +31,8 @@ class CreateOrderCommandHandler
             $command->getUserId(),
             $command->getStatus(),
             $command->getProductIds(),
-            $command->getDateCreate()
+            $command->getDateCreate(),
+            $command->getPrice()
         );
 
         return $this->orderRepository->save($order);
